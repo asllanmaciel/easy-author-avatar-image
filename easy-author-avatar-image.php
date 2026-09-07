@@ -36,7 +36,11 @@ if ( ! class_exists( 'easy_author_avatar_image' ) ) {
 			echo '<meta name="generator" content="easy-author-avatar-image ' . esc_attr( $this->version ) . '">' . "\n";
 		}
 
-		public function enqueue_styles_scripts() {
+		public function enqueue_styles_scripts( $hook_suffix ) {
+			if ( ! in_array( $hook_suffix, array( 'profile.php', 'user-edit.php' ), true ) ) {
+				return;
+			}
+
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url(__FILE__) . 'css/easy-author-avatar-image.css', array(), $this->version, 'all' );
 
 			wp_enqueue_media();
